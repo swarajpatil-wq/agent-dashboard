@@ -9,7 +9,7 @@ import Heatmap from '../components/charts/Heatmap'
 import StackedBar from '../components/charts/StackedBar'
 import {
   rangePresets, performanceStatsByRange, solvedTrend, touchedTrend, workloadStats,
-  recentlyUpdated, slaTickets,
+  recentlyUpdated, breachedTickets,
   unassignedByGroup, volumeByChannel, ticketsByForm,
   ahtByChannel, frtByChannel, formatMinutes,
   type RangeKey,
@@ -120,8 +120,6 @@ const TIME_TILE_IDS = new Set(['frt', 'aht'])
 function AgentDashboard() {
   const [range, setRange] = useState<RangeKey>('7d')
   const tiles = performanceStatsByRange[range].filter((s) => !TIME_TILE_IDS.has(s.id))
-  const breachCount = slaTickets.filter((t) => t.slaStatus === 'breach').length
-  const atRiskCount = slaTickets.filter((t) => t.slaStatus === 'at-risk').length
 
   return (
     <Wrap>
@@ -134,7 +132,7 @@ function AgentDashboard() {
       <Section>
         <StatGrid>
           {workloadStats.map((s) => (
-            <StatTile key={s.id} stat={s} />
+            <StatTile key={s.id} stat={s} showSparkline={false} />
           ))}
         </StatGrid>
 
@@ -155,9 +153,9 @@ function AgentDashboard() {
             <TicketList variant="recent" items={recentlyUpdated} />
           </div>
           <div>
-            <SubHead><SubTitle>SLA at risk</SubTitle><SubMeta>{breachCount} breached · {atRiskCount} about to breach</SubMeta></SubHead>
+            <SubHead><SubTitle>SLA breached</SubTitle><SubMeta>{breachedTickets.length} breached · sorted by time overdue</SubMeta></SubHead>
             <Spacer />
-            <TicketList variant="sla" items={slaTickets} />
+            <TicketList variant="sla" items={breachedTickets} />
           </div>
         </AdjacentGrid>
 
@@ -191,8 +189,8 @@ function AgentDashboard() {
           ))}
         </StatGrid>
         <Grid2>
-          <BarChart title="Avg handle time by channel" data={ahtByChannel} hue="orange" formatValue={formatMinutes} />
-          <BarChart title="First response time by channel" data={frtByChannel} hue="azure" formatValue={formatMinutes} />
+          <BarChart title="Avg handle time by channel" data={ahtByChannel} hue="orange" formatValue={formatMinutes} formatAxis={(v) => `${v}m`} />
+          <BarChart title="First response time by channel" data={frtByChannel} hue="azure" formatValue={formatMinutes} formatAxis={(v) => `${v}m`} />
         </Grid2>
       </Section>
     </Wrap>

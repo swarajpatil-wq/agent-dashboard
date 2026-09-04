@@ -51,7 +51,7 @@ const Spacer = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `
 
-function StatTile({ stat }: { stat: Stat }) {
+function StatTile({ stat, showSparkline = true }: { stat: Stat; showSparkline?: boolean }) {
   const good = stat.deltaDirection === stat.goodWhen
   const sign = stat.deltaDirection === 'up' ? '+' : '−'
   const DeltaIcon = stat.deltaDirection === 'up' ? ChevronUpIcon : ChevronDownIcon
@@ -68,7 +68,7 @@ function StatTile({ stat }: { stat: Stat }) {
         </Delta>
         <Spacer>vs prev. period</Spacer>
       </DeltaRow>
-      <Sparkline data={stat.sparkline} />
+      {showSparkline && <Sparkline data={stat.sparkline} />}
     </Card>
   )
 }

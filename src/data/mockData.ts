@@ -160,6 +160,15 @@ export const slaTickets: Ticket[] = [
   { id: '1329', subject: 'Checkout fails on mobile for EU region', requester: 'Noah Kim', channel: 'Chat', priority: 'High', status: 'Open', slaStatus: 'at-risk', minutesLeft: 55, updatedLabel: '21m ago' },
 ]
 
+// Breached SLA tickets only, sorted by time overdue (most overdue first).
+export const breachedTickets: Ticket[] = [
+  { id: '1284', subject: 'Account locked after MFA change', requester: 'Grace Lee', channel: 'Phone', priority: 'Urgent', status: 'Open', slaStatus: 'breach', minutesLeft: -285, updatedLabel: '4h ago' },
+  { id: '1331', subject: 'SLA breach on escalated VIP ticket', requester: 'Sofia Almeida', channel: 'Social', priority: 'Urgent', status: 'Open', slaStatus: 'breach', minutesLeft: -125, updatedLabel: '2h ago' },
+  { id: '1340', subject: 'Cannot log in after password reset', requester: 'Devon Rivera', channel: 'Email', priority: 'Urgent', status: 'Open', slaStatus: 'breach', minutesLeft: -72, updatedLabel: '1h ago' },
+  { id: '1335', subject: 'API returns 500 on bulk import endpoint', requester: 'Liam O’Connor', channel: 'Email', priority: 'High', status: 'Open', slaStatus: 'breach', minutesLeft: -47, updatedLabel: '50m ago' },
+  { id: '1342', subject: 'Order #88412 not received — refund request', requester: 'Maya Chen', channel: 'Chat', priority: 'Urgent', status: 'Open', slaStatus: 'breach', minutesLeft: -14, updatedLabel: '2m ago' },
+]
+
 export const agingTickets: Ticket[] = [
   { id: '1284', subject: 'Password reset email never arrives', requester: 'Elena Petrova', channel: 'Email', priority: 'High', status: 'Open', ageDays: 9, updatedLabel: '9d ago' },
   { id: '1271', subject: 'Cannot downgrade plan — button disabled', requester: 'Rahul Verma', channel: 'Email', priority: 'Normal', status: 'On-hold', ageDays: 7, updatedLabel: '7d ago' },
